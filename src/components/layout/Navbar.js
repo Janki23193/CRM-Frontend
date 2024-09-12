@@ -1,6 +1,5 @@
-import React,{ Component } from "react";
-import {NavLink, Router} from "react-router-dom";
-import { Input, Menu } from 'semantic-ui-react'
+import React from "react";
+import { Menu } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 const Navbar = () =>{
     return(
@@ -27,35 +26,17 @@ const Navbar = () =>{
         to = '/sales'
         name='Sales'
       />
+      <Menu.Item
+      as = {Link}
+      to = '/Registration'
+      name = 'Registration'/>
+      <Menu.Item
+      as = {Link}
+      to = '/Login'
+      name = 'Login'/>
      
     </Menu>
 
     )
 }
 export default Navbar;
-
-{/* <div>
-    <NavLink  to = "/">React User</NavLink>
-    <button >
-      <span >Create Customer</span>
-    </button> 
-    <div  >
-      <ul >
-      <li >
-          <NavLink   to = "/">Home</NavLink>
-        </li>
-        <li>
-          <NavLink   to ="/product">Product</NavLink>
-        </li>
-        <li>
-          <NavLink to ="/sales">Sales</NavLink>
-        </li>
-        <li>
-          <NavLink to ="/customer">Customer</NavLink>
-        </li>
-        <li>
-          <NavLink  to ="/store">Store</NavLink>
-        </li>
-      </ul>
-    </div>
-  </div>   */}

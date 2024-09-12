@@ -13,7 +13,7 @@ function Store() {
   const[currentPage, setCurrentPage] = useState(1);
   
   const {getStoredata} = useContext(MyContext);
-  console.log(getStoredata);
+  //console.log(getStoredata);
 
   //const[st, setStore] = useState([]);
 
@@ -38,16 +38,16 @@ function Store() {
   }*/
   let ItemperPage = 5;
   let LastIndex = ItemperPage * currentPage; // lastindex = 5, 10, 15...
-  console.log(LastIndex);
+  //console.log(LastIndex);
 
   let FirstIndex = LastIndex - ItemperPage; // firstindex = 0, 5, 10...
-  console.log(FirstIndex)
+  //console.log(FirstIndex)
 
   let currentPageData = getStoredata.slice(FirstIndex, LastIndex);
-  console.log(currentPageData)
+  //console.log(currentPageData)
 
   let totalitemperpage = Math.ceil(getStoredata.length/ItemperPage);
-  console.log(totalitemperpage)
+  //console.log(totalitemperpage)
 
   const storedropdown = [];
 

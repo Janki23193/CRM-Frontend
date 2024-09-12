@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {Button, Icon} from 'semantic-ui-react'
 import CreateSaleModal from './CreateSaleModal';
 import DeleteSalesModal from './DeleteSalesModal';
 import UpdateSales from './UpdateSales';
+import { MyContext } from './CustomerContext';
 
 function Sales() {
-const[sale, setSales] = useState([]);
 const[EditSale, setEditSale] = useState([]);
 const[modal, setModal] = useState(false);
 const[DelModal, setDelModal]= useState(false);
@@ -14,23 +14,24 @@ const[EditModal, setEditModal]= useState(false);
 function showModal(){
   setModal(true);
 }
-
-async function fetchDataSale(){
+const {getSalesData} = useContext(MyContext)
+// async function fetchDataSale(){
  
-    const data = await fetch('https://localhost:44311/api/Sales/GetAllSales',
-    {
-      method : 'Get',
-      headers : {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true
-      }
-    })
-    const res = await data.json();
-    setSales(res);
-    console.log(res);
-}
+//     const data = await fetch('https://localhost:44311/api/Sales/GetAllSales',
+//     {
+//       method : 'Get',
+//       headers : {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json',
+//         'Access-Control-Allow-Origin': '*',
+//         'Access-Control-Allow-Credentials': true
+//       }
+//     })
+//     const res = await data.json();
+//     setSales(res);
+//     console.log(res);
+// }
+let ItemperPage = 5;
 async function editSales(id){
  
    const data = await fetch(`https://localhost:44311/api/Sales/GetSalesById/${id}`,{
@@ -56,9 +57,9 @@ setEditSale(res.map(e=>{
 }
 
 console.log(EditSale)
-useEffect(()=>{
-  fetchDataSale();
-}, []);
+// useEffect(()=>{
+//   fetchDataSale();
+// }, []);
 
   return (
     <div className='ui container'>
@@ -74,7 +75,7 @@ useEffect(()=>{
        </thead>
        <tbody>
         {
-          sale.map((item)=>
+          getSalesData.map((item)=>
             {
               return(
                 <tr key={item.salesId}>
@@ -96,7 +97,7 @@ useEffect(()=>{
        </tbody>
       </table>
       <CreateSaleModal
-      fetch={fetchDataSale}
+      //fetch={fetchDataSale}
       open={modal}
       size = {'small'}
       close = {()=>setModal(false)}/>
@@ -107,7 +108,7 @@ useEffect(()=>{
       />
       
       <DeleteSalesModal
-      fetch={fetchDataSale}
+      //fetch={fetchDataSale}
       object = {EditSale}
       open = {DelModal}
       size = {'small'}
