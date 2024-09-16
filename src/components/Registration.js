@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { json } from 'react-router-dom';
 import { Form, Button} from 'semantic-ui-react';
 
 const Registration = () => {
@@ -9,14 +10,31 @@ const Registration = () => {
         password: '',
         confirmPassword: ''
     })
-    const submitData = (e)=> {
-      e.preventDefault()
+    async function submitData(e){
+      e.preventDefault();
+      var body = {
+        Email : formData.email,
+        Password : formData.password,
+        confirmPassword : formData.confirmPassword
+      }
+      var data = await fetch('https://localhost:44311/api/Account/Register',{
+        method: 'Post',
+        headers: {
+          'Accept' : 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials' : true
+        },
+        body:JSON.stringify(body)
+      }) 
+      const res = await data.json();
+      console.log(res);
     }
   return (
     <div style={{width: '400px', margin: '0 auto', padding: '2rem'}}>
         <h2>Registration</h2>
         <Form onSubmit={submitData}>
-            <Form.Input
+            {/* <Form.Input
             label = 'First Name'
             placeholder = 'Enter First Name'
             value = {formData.firstName}
@@ -29,12 +47,13 @@ const Registration = () => {
             value = {formData.lastName}
             name = 'lastname'
             required
-            />
+            /> */}
             <Form.Input
             label = 'Email'
             placeholder = 'Enter Email'
             value = {formData.email}
             name = 'email'
+            onChange={(e)=> setFormData({...formData, email:e.target.value})}
             required
             />
             <Form.Input
@@ -42,6 +61,7 @@ const Registration = () => {
             placeholder = 'Enter Password'
             value = {formData.password}
             name = 'password'
+            onChange={(e) => setFormData({...formData, password:e.target.value})}
             required
             />
             <Form.Input
@@ -49,9 +69,10 @@ const Registration = () => {
             placeholder = 'Enter Confirm Password'
             value = {formData.confirmPassword}
             name = 'confirmPassword'
+            onChange={(e) => setFormData({...formData, confirmPassword:e.target.value})}
             required
             />
-            <Button primary>Registration</Button>
+            <Button style={{justifyContent:'center'}} primary>Registration</Button>
         </Form>
        
     </div>

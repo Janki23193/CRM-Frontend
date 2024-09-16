@@ -6,8 +6,9 @@ function CreateProductModal(props) {
     const[price, setPrice]= useState();
     
     async function Create(){
-        var body = {Name:productName,
-            Price: price
+        var body = {
+          Name:productName,
+          Price: price
         }
         var data = await fetch('https://localhost:44311/api/Product/CreateProduct',
         {
