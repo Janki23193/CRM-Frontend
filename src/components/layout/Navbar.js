@@ -26,17 +26,17 @@ const Navbar = () =>{
         to = '/sales'
         name='Sales'
       />
+      <Menu.Menu position="right">
       <Menu.Item
-      as = {Link}
-      to = '/Registration'
-      name = 'Registration'/>
+        as = {Link}
+        to = '/Registration'
+        name = 'Registration'/>
       <Menu.Item
-      as = {Link}
-      to = '/Login'
-      name = 'Login'/>
-     
+        as = {Link}
+        to = '/Login'
+        name = 'Login'/>
+      </Menu.Menu> 
     </Menu>
-
     )
 }
 export default Navbar;

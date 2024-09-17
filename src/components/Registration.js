@@ -31,7 +31,7 @@ const Registration = () => {
       console.log(res);
     }
   return (
-    <div style={{width: '400px', margin: '0 auto', padding: '2rem'}}>
+    <div className='registerLayout'>
         <h2>Registration</h2>
         <Form onSubmit={submitData}>
             {/* <Form.Input
@@ -60,6 +60,7 @@ const Registration = () => {
             label = 'Password'
             placeholder = 'Enter Password'
             value = {formData.password}
+            type='password'
             name = 'password'
             onChange={(e) => setFormData({...formData, password:e.target.value})}
             required
@@ -68,11 +69,12 @@ const Registration = () => {
             label = 'Confirm Password'
             placeholder = 'Enter Confirm Password'
             value = {formData.confirmPassword}
+            type='password'
             name = 'confirmPassword'
             onChange={(e) => setFormData({...formData, confirmPassword:e.target.value})}
             required
             />
-            <Button style={{justifyContent:'center'}} primary>Registration</Button>
+            <Button primary>Registration</Button>
         </Form>
        
     </div>

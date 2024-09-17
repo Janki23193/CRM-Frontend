@@ -1,0 +1,19 @@
+.menu{
+    display: flex;
+    justify-content: space-between;
+  }
+.registerLayout{
+    margin: 0 auto;
+    width: 400px;
+    padding: 2rem;
+    border: 1px solid black;
+}
+.loginLayout{
+    margin: 0px auto;
+    width: 400px;
+    padding: 2rem;
+    border: 1px solid black;
+}
+.btnRegister{
+    justify-content: center;
+}
