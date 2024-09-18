@@ -1,15 +1,16 @@
 import React from "react";
 import { Menu } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
-const Navbar = () =>{
-    return(
-      
-      <Menu inverted>
+const Navbar = ({isLoggedIn, usrName}) =>{
+    return( 
+    
+    <Menu inverted>
+      { isLoggedIn ? (
+     <>
       <Menu.Item
       as={Link}
       to= '/customer'
-      name = 'customer'
-        
+      name = 'customer'      
       />
       <Menu.Item
        as={Link}
@@ -26,6 +27,16 @@ const Navbar = () =>{
         to = '/sales'
         name='Sales'
       />
+      <Menu.Item>
+           Hello, {usrName}
+       </Menu.Item>
+       <Menu.Item
+        as={Link}
+        to = '/Login'
+        name='Log out'
+      />
+     </>
+     ):(
       <Menu.Menu position="right">
       <Menu.Item
         as = {Link}
@@ -35,7 +46,8 @@ const Navbar = () =>{
         as = {Link}
         to = '/Login'
         name = 'Login'/>
-      </Menu.Menu> 
+      </Menu.Menu>
+       )}; 
     </Menu>
     )
 }

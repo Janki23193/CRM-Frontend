@@ -1,34 +1,60 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {Form, Button} from 'semantic-ui-react';
 
-const Login = () => {
+const Login = ({setIsLoggedIn, setUserName}) => {
+  const[error, setError] = useState('');
   const [loginDetails, setLoginDetails] = useState({
     email : '',
     password : ''
   });
+
+  const navigate = useNavigate();
   async function submitLoginData(e){
       e.preventDefault();
       var body = {
         email: loginDetails.email,
         password: loginDetails.password
       }
-      var data = await fetch('https://localhost:44311/api/Account/Login',{
-        method:'post',
-        headers:{
-            'Accept' : 'application/json',
-            'Content-Type' : 'application/json',
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Credentials' : true
-        },
-        body:JSON.stringify.JSON(body)
-      })
-      const res = await data.json();
-      console.log(res)
+      try{
+        var data = await fetch('https://localhost:44311/api/Account/Login',{
+          method:'post',
+          headers:{
+              'Accept' : 'application/json',
+              'Content-Type' : 'application/json',
+              'Access-Control-Allow-Origin' : '*',
+              'Access-Control-Allow-Credentials' : true
+          },
+          body:JSON.stringify(body)
+        });
+        if(data.ok){
+         const res = await data.json();
+         //console.log(res);   
+         setIsLoggedIn(true);
+         if(res){
+           setUserName(res.userName);
+         }
+         else{
+          console.error("UserName is not found in the response", res); 
+         }
+        
+         navigate('/home');
+         console.log('successfull login');
+        } else{
+          const errorMessage = await data.text();
+          setError('Login failed: ' + errorMessage);
+        }
+      } catch{
+        setError("Error Occured! Please try again later");
+        console.error('Error', error);
+      }
+      
+     
   }
   return (
     <div className='loginLayout'>
       <h2>Login</h2>
-      <Form>
+      <Form onSubmit={submitLoginData}>
         <Form.Input
          label = 'Email'
          name = 'email'
